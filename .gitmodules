@@ -1,0 +1,3 @@
+[submodule "vendor/bundles/Taveo/PolishExtensionsBundle"]
+	path = vendor/bundles/Taveo/PolishExtensionsBundle
+	url = git://github.com/taveo/TaveoPolishExtensionsBundle.git

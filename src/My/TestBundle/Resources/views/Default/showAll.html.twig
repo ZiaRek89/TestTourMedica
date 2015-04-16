@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+	<h1>Kliniki : <a href="{{ url('add') }}">Dodaj nową</a></h1>
+	<table>
+		<thead>
+		<tr>
+			<th>|</th>
+			<th>Nazwa</th>
+			<th>|</th>
+			<th>Edycja</th>
+			<th>|</th>
+			<th>Pacjenci</th>
+			<th>|</th>
+		</tr>
+		</thead>	
+		<tbody>
+		{% for clinic in clinics %}
+			<tr>
+				<td>|</td>
+				<td>{{ clinic.name }}</td>
+				<td>|</td>
+				<td><a href="{{ url('edit', {'action':'editClinic', 'id': clinic.id}) }}">Edytuj</a></td>
+				<td>|</td>
+				<td><a href="{{ url('edit', {'action':'addPatient', 'id': clinic.id}) }}">Dodaj</a></td>
+				<td>|</td>
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+
+{% endblock %}
+
+

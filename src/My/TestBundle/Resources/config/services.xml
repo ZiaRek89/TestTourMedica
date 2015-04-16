@@ -13,4 +13,17 @@
         </service>
     </services>
     -->
+
+    <services>
+
+        <service id="my.up" class="My\TestBundle\EventListener\UpListener">
+            <tag name="kernel.event_listener" event="my.events.up" method="up" />
+        </service>
+
+        <service id="my.form.type.pesel" class="My\TestBundle\Form\Type\PeselType">
+            <tag name="form.type" alias="pesel" />
+        </service>
+
+    </services>
+
 </container>

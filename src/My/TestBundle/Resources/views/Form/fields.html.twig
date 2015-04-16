@@ -1,0 +1,7 @@
+{% block pesel_widget %}
+    {% spaceless %}
+        {% set type = 'pesel' %}
+        {{ block('form_widget_simple') }}
+ 
+    {% endspaceless %}
+{% endblock %}

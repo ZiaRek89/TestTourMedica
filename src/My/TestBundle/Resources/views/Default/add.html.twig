@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+	<a href="{{ url('home') }}">Wróć</a>
+
+	<br><br>
+
+	{{ form_start(clinicForm) }}
+
+		{{ form_label(clinicForm.name, 'Nazwa kliniki : ') }}
+		{{ form_widget(clinicForm.name) }}
+		{{ form_errors(clinicForm.name) }}
+
+		<input type="submit" value="Zapisz" />
+
+	{{ form_end(clinicForm) }}
+
+{% endblock %}
