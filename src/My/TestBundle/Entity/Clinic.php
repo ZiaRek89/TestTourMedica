@@ -3,17 +3,19 @@
 namespace My\TestBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 
 /**
- * Clinic
+ * Clinic.
  *
  * @ORM\Table()
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
  */
 class Clinic
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -34,9 +36,9 @@ class Clinic
     private $patients;
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -44,9 +46,10 @@ class Clinic
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return Clinic
      */
     public function setName($name)
@@ -57,16 +60,16 @@ class Clinic
     }
 
     /**
-     * Get name
+     * Get name.
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
         return $this->name;
     }
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -74,9 +77,10 @@ class Clinic
     }
 
     /**
-     * Add patients
+     * Add patients.
      *
      * @param \My\TestBundle\Entity\Patient $patients
+     *
      * @return Clinic
      */
     public function addPatient(\My\TestBundle\Entity\Patient $patients)
@@ -87,7 +91,7 @@ class Clinic
     }
 
     /**
-     * Remove patients
+     * Remove patients.
      *
      * @param \My\TestBundle\Entity\Patient $patients
      */
@@ -97,12 +101,28 @@ class Clinic
     }
 
     /**
-     * Get patients
+     * Get patients.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getPatients()
     {
         return $this->patients;
+    }
+
+    /**
+     * @ORM\PostUpdate
+     */
+    public function postUpdate(LifecycleEventArgs $args)
+    {
+        $em = $args->getObjectManager();
+
+        foreach ($this->getPatients() as $patient) {
+            $patient->setFirstName(ucfirst($patient->getFirstName()));
+            $patient->setLastName(ucfirst($patient->getLastName()));
+
+            $em->persist($patient);
+            $em->flush();
+        }
     }
 }

@@ -3,11 +3,10 @@
 namespace My\TestBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
-use Taveo\PolishExtensionsBundle\Validator\Constraints as TaveoAssert;
+use My\TestBundle\Validator\Constraints as Assert;
 
 /**
- * Patient
+ * Patient.
  *
  * @ORM\Table()
  * @ORM\Entity
@@ -15,7 +14,7 @@ use Taveo\PolishExtensionsBundle\Validator\Constraints as TaveoAssert;
 class Patient
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -40,7 +39,7 @@ class Patient
     /**
      * @var bigint
      *
-     * @TaveoAssert\PESEL
+     * @Assert\PESEL
      * @ORM\Column(name="pesel", type="bigint")
      */
     private $pesel;
@@ -58,9 +57,9 @@ class Patient
     private $clinics;
 
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -68,9 +67,10 @@ class Patient
     }
 
     /**
-     * Set firstName
+     * Set firstName.
      *
      * @param string $firstName
+     *
      * @return Patient
      */
     public function setFirstName($firstName)
@@ -81,9 +81,9 @@ class Patient
     }
 
     /**
-     * Get firstName
+     * Get firstName.
      *
-     * @return string 
+     * @return string
      */
     public function getFirstName()
     {
@@ -91,9 +91,10 @@ class Patient
     }
 
     /**
-     * Set lastName
+     * Set lastName.
      *
      * @param string $lastName
+     *
      * @return Patient
      */
     public function setLastName($lastName)
@@ -104,9 +105,9 @@ class Patient
     }
 
     /**
-     * Get lastName
+     * Get lastName.
      *
-     * @return string 
+     * @return string
      */
     public function getLastName()
     {
@@ -114,9 +115,10 @@ class Patient
     }
 
     /**
-     * Set pesel
+     * Set pesel.
      *
-     * @param integer $pesel
+     * @param int $pesel
+     *
      * @return Patient
      */
     public function setPesel($pesel)
@@ -127,9 +129,9 @@ class Patient
     }
 
     /**
-     * Get pesel
+     * Get pesel.
      *
-     * @return integer 
+     * @return int
      */
     public function getPesel()
     {
@@ -137,9 +139,10 @@ class Patient
     }
 
     /**
-     * Set dateBirth
+     * Set dateBirth.
      *
      * @param \DateTime $dateBirth
+     *
      * @return Patient
      */
     public function setDateBirth($dateBirth)
@@ -150,16 +153,16 @@ class Patient
     }
 
     /**
-     * Get dateBirth
+     * Get dateBirth.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDateBirth()
     {
         return $this->dateBirth;
     }
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -167,9 +170,10 @@ class Patient
     }
 
     /**
-     * Add clinics
+     * Add clinics.
      *
      * @param \My\TestBundle\Entity\Clinic $clinics
+     *
      * @return Patient
      */
     public function addClinic(\My\TestBundle\Entity\Clinic $clinics)
@@ -180,7 +184,7 @@ class Patient
     }
 
     /**
-     * Remove clinics
+     * Remove clinics.
      *
      * @param \My\TestBundle\Entity\Clinic $clinics
      */
@@ -190,9 +194,9 @@ class Patient
     }
 
     /**
-     * Get clinics
+     * Get clinics.
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getClinics()
     {

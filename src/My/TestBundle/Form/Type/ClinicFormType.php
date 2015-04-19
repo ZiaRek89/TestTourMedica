@@ -1,32 +1,54 @@
-<?php 
+<?php
 
 namespace My\TestBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
-class ClinicFormType extends AbstractType {
+class ClinicFormType extends AbstractType
+{
+    protected $em;
 
-	public function getName(){
+    public function __construct($em)
+    {
+        $this->em = $em;
+    }
 
-		return 'Clinic_form';
-	}
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+                ->add('name', 'text', [
+                        'required' => true,
+            ])
+                ->add('patients', 'collection', [
+                        'type' => new PatientFormType(),
+                        'label' => ' ',
+            ]);
 
-	public function buildForm(FormBuilderInterface $builder, array $options){
+        $builder->addEventListener(FormEvents::POST_SUBMIT, [$this, 'onPostSubmit']);
+    }
 
-		$builder
-				->add('name', 'text', [
-		    		  	'required' => true
-		    ])
-				->add('patients', 'collection', [
-						'type' => new PatientFormType(),
-						'label' => ' '
-			]);
-	}
+    public function onPostSubmit(FormEvent $event)
+    {
+        $form = $event->getForm();
+        $data = $event->getData();
 
-	public function setDefaultOptions(OptionsResolverInterface $resolver){
+        if ($form->isValid()) {
+            $this->em->persist($data);
+            $this->em->flush();
+        }
+    }
 
-		$resolver->setDefaults(['data_class' => 'My\TestBundle\Entity\Clinic']);
-	}
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(['data_class' => 'My\TestBundle\Entity\Clinic']);
+    }
+
+    public function getName()
+    {
+        return 'Clinic_form';
+    }
 }
